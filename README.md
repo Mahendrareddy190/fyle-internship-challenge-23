@@ -50,3 +50,8 @@ To run unit tests for the components and services, use Angular's CLI:
 
 ```bash
 ng test
+
+Generate code coverage reports (--code-coverage)
+
+```bash
+ng test --no-watch --code-coverage
