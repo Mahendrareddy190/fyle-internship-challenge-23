@@ -42,16 +42,13 @@ Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app wil
 Visit the [Angular Documentation](https://angular.io/guide/styleguide) to learn more.
 Styling is to be strictly done with [Tailwind](https://tailwindcss.com/docs/installation).
 
-## Running Tests
+ ## Running Tests
 
-### Unit Tests
+### Unit Tests with Code Coverage Reports
 
-To run unit tests for the components and services, use Angular's CLI:
-
-```bash
-ng test
-
-Generate code coverage reports (--code-coverage)
+To execute unit tests for the components and services, you can utilize Angular's CLI test command with the `--code-coverage` flag:
 
 ```bash
+ng test 
+
 ng test --no-watch --code-coverage
