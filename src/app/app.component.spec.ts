@@ -6,6 +6,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ApiService } from './services/api.service'; 
 import { FormsModule } from '@angular/forms';
+import { ComponentRef } from '@angular/core';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -47,7 +48,7 @@ describe('AppComponent', () => {
     spyOn(apiService, 'getUser').and.returnValue(of(fakeUserData));  
     spyOn(apiService, 'getRepos').and.returnValue(of(fakeRepoData));  
     
-    component.value = userName;
+    component.username=userName;
     component.APIcall();
 
     expect(apiService.getUser).toHaveBeenCalledWith(userName);
@@ -62,6 +63,39 @@ describe('AppComponent', () => {
     expect(component.skeletonloader).toBe(false);
   }));
 
+   it('should fetch tags for a repository', () => {
+    const languagesMock = { language1: 'JavaScript', language2: 'TypeScript' };
+    const repoName = 'angular-quickstart-lib';
+    const languagesUrl = 'https://api.github.com/repos/johnpapa/angular-quickstart-lib/languages';
+
+    spyOn(apiService, 'getTopic').and.returnValue(of(languagesMock))
+
+    component.getRepoTags(languagesUrl, repoName);
+    
+    expect(apiService.getTopic).toHaveBeenCalledWith(languagesUrl);
+    expect(component.Tags[repoName]).toEqual(Object.keys(languagesMock));
+  });
+
+  it('should fetch tags for each repository', () => {
+    const reposMock = [
+      { name: 'angular-tour-of-heroes', languages_url: 'https://api.github.com/repos/johnpapa/angular-tour-of-heroes/languages' },
+      { name: 'angular-quickstart-lib', languages_url: 'https://api.github.com/repos/johnpapa/angular-quickstart-lib/languages' }
+    ];
+
+    spyOn(component, 'getRepoTags').and.callThrough();  
+ 
+    component.Repositories = reposMock;
+
+    component.getCurrentPageRepos();
+
+    expect(component.getRepoTags).toHaveBeenCalledTimes(reposMock.length);
+
+    for (const repo of reposMock) {
+      expect(component.getRepoTags).toHaveBeenCalledWith(repo.languages_url, repo.name);
+    }
+  });
+
+
  it('chaecking typeof Repositories,userProfile and skeletonloader',() => {
   expect(typeof component.Repositories).toBe('object') 
   expect(typeof component.userProfile).toBe('object')
@@ -73,6 +107,5 @@ describe('AppComponent', () => {
     fixture.detectChanges();  
     component.ngOnInit()
     expect(component.ngOnInit).toHaveBeenCalled();
- 
  })
 });

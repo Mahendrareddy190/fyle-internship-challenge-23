@@ -1,10 +1,11 @@
 <header class="bg-white drop-shadow-sm h-14">
   <nav class="flex justify-between sm:px-7">
-      <img class="my-3" src="https://pngimg.com/d/github_PNG17.png" alt="github" width="100px" height="100px">
-       <div>
-        <input class="border form-control max-sm:w-[150px] w-[250px] h-[30px] rounded-lg  p-3 my-3" [(ngModel)]="username" placeholder="Enter username" />
-        <button class="btn ml-2" (click)="onEnter(username)">Search</button>
-       </div>
+    <img class="my-3" src="https://pngimg.com/d/github_PNG17.png" alt="github" width="100px" height="100px">
+    <div class="form-group">
+      <input class="border form-control max-sm:w-[150px] w-[250px] h-[30px] rounded-lg  p-3 my-3" [(ngModel)]="username"
+        placeholder="Enter username" />
+      <button class="btn ml-2" (click)="onEnter(username)">Search</button>
+    </div>
   </nav>
 </header>
 
@@ -21,7 +22,9 @@
     <div class="center" *ngIf="!skeletonloader">
       <img class="border-gray-500 border-x-4  border-y-4 rounded-[50%] w-[200px] h-[200px] mb-5"
         src="{{ userProfile.avatar_url }}" alt="user_img" />
-      <a class="text-center text-blue-500"  href="https://github.com/Mahendrareddy190">https://github.com/{{ userProfile.login }}</a>
+      <a class="text-center text-blue-500" href="https://github.com/{{
+        userProfile.login }}">https://github.com/{{
+        userProfile.login }}</a>
     </div>
 
     <!-- Profile skeleton-loader-->
@@ -44,13 +47,14 @@
           }}
         </p>
       </div>
-      <p class="text-center" *ngIf="userProfile.twitter_username!=null">Twitter:https://twitter.com/{{userProfile.twitter_username }}</p>
+      <p class="text-center" *ngIf="userProfile.twitter_username!=null">
+        Twitter:https://twitter.com/{{userProfile.twitter_username }}</p>
     </div>
   </section>
 
   <!-- Displaying All Repositories of currentUser-->
   <main class="container">
-    
+
     <div class="mt-10 ml-8">
       Repositories <sup class="bg-gray-500 rounded-xl p-1">{{Repositories.length}}</sup>
     </div>
@@ -78,9 +82,12 @@
         </p>
         <p class="mb-2" *ngIf="repo.description == null">No description</p>
         <ul class="flex flex-wrap">
-          <li>javaScript</li>
-          <li class="ml-2">Html</li>
-          <li class="ml-2">css</li>
+          <span *ngIf="Tags[repo.name] && Tags[repo.name].length==0"
+            class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">No
+            Tags</span>
+          <li class="mr-3 my-3" *ngFor="let l of Tags[repo.name]"><span
+              class="rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10">{{l}}</span>
+          </li>
         </ul>
       </div>
     </div>

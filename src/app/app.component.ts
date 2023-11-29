@@ -9,12 +9,12 @@ import { ApiService } from './services/api.service';
 })
 
 export class AppComponent implements OnInit{
-  public Repositories:any = [];
-  public userProfile:any = {};
+  Repositories:any = [];
+  userProfile:any = {};
   p: number = 1;
   username:string = 'johnpapa';
   skeletonloader:boolean=true;
-  title:string="fyle-frontend-challenge";
+  Tags:any = {}; 
   perPageRepo:number=10;
   constructor(
     private apiService: ApiService
@@ -36,9 +36,31 @@ export class AppComponent implements OnInit{
     setTimeout(() => {
       this.skeletonloader=false;
     },  1000);
+    setTimeout(() => {
+      this.getCurrentPageRepos() 
+    },  1000);
+   
   }
+  
+  getRepoTags(languages_url:string,name:string){
+      this.apiService.getTopic(languages_url).subscribe(Response => {
+      this.Tags[name] = Object.keys(Response)
+      })
+  }
+  getCurrentPageRepos(){
+    // var i:number=0;    
+    // if(this.Tags.length!=0){this.Tags=[]}
+    if(this.Repositories.length){
+    for (const repo of this.Repositories) {
+      // if (i<this.perPageRepo) {
+        this.getRepoTags(repo.languages_url,repo.name)
+        // i+=1
+      // }
+    }
+      }
+   }
 
   ngOnInit() {
-    this.APIcall()  
+    this.APIcall() 
   }
 }

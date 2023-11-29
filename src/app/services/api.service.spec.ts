@@ -33,5 +33,12 @@ describe('ApiService', () => {
    expect(mockreq.request.method).toEqual('GET')
  })
 
+ it('Get each Repositore of johnpapa',() => {
+  service.getTopic("https://api.github.com/repos/johnpapa/angular-tour-of-heroes/languages").subscribe((repoTopics : any) => {
+      expect(repoTopics).toBeTruthy();
+  })
+  const mockreq = testingController.expectOne('https://api.github.com/repos/johnpapa/angular-tour-of-heroes/languages')
+  expect(mockreq.request.method).toEqual('GET')
+})
 
 });
