@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   public Repositories:any = [];
   public userProfile:any = {};
   p: number = 1;
-  value:string = 'johnpapa';
+  username:string = 'johnpapa';
   skeletonloader:boolean=true;
   title:string="fyle-frontend-challenge";
   perPageRepo:number=10;
@@ -21,16 +21,16 @@ export class AppComponent implements OnInit{
   ) {}
   
   onEnter(value: string) {
-    this.value = value;
+    this.username = value;
     this.skeletonloader=true;
     this.APIcall()
   }
 
   APIcall(){
-    this.apiService.getUser(`${this.value}`).subscribe(data => {
+    this.apiService.getUser(`${this.username}`).subscribe(data => {
       this.userProfile = data
     }) 
-    this.apiService.getRepos(`${this.value}`).subscribe(data => {
+    this.apiService.getRepos(`${this.username}`).subscribe(data => {
       this.Repositories = data      
     })
     setTimeout(() => {
