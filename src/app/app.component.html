@@ -1,53 +1,112 @@
-
 <div class="container p-[20px] md:p-[50px] w-[100%] h-[100%]">
-     <header class="grid grid-cols-2 md:grid-cols-3">
-           <ngx-skeleton-loader [theme]="{
+  <header class="grid grid-cols-2 md:grid-cols-3">
+    <!-- image skeleton-loader -->
+    <ngx-skeleton-loader
+      [theme]="{
             'height': '200px',
             'width':'200px',
             'border-radius':'50%',
-         }" count="1"  animation="progress" *ngIf="skeletonloader" appearance="circle"></ngx-skeleton-loader>
-           <div *ngIf="!skeletonloader">
-               <img class="border-gray-500 border-x-4 border-y-4 rounded-[50%] w-[200px] h-[200px] mb-5" src={{userProfile.avatar_url}} alt="user_img">
-                <a href="https://github.com/Mahendrareddy190">https://github.com/{{userProfile.login}}</a>
-           </div>
-           <ngx-skeleton-loader [theme]="{
-            'height': '20px',
-            'margin-top':'40px'
-         }"   count="2"  animation="progress" *ngIf="skeletonloader" appearance="line">
-          </ngx-skeleton-loader>
-           <div class="mt-[25%] sm:mt-[15%]" *ngIf="!skeletonloader">
-              <h3 class="mb-2 text-xl">{{userProfile.login}}</h3>
-              <p  class="mb-2">{{userProfile.bio}}</p>
-              <p  class="mb-2 flex flex-1 m-0" *ngIf="userProfile.location!=null"><img class="mr-2 h-6" src="../assets/icons8-location.gif" alt="location">{{userProfile.location}}</p>
-              <p>Twitter:https://twitter.com/{{userProfile.twitter_username}}</p>
-           </div>
-           <input class="border  w-[300px] h-[30px] rounded-lg p-3 mt-5 md:ml-5 md:mt-0" #box (keyup.enter)="onEnter(box.value)" placeholder="Enter username and Click Enter" />
-     </header>
-     <ngx-skeleton-loader 
-     *ngIf="skeletonloader"
-     count="3" 
-     appearance="line" 
-     animation="progress" 
-     [theme]="{
-       'height': '30px',
-       'margin-top':'40px'
-     }"
->
-</ngx-skeleton-loader>
-     <main class="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-10 w-[100%] h-[100%]" *ngIf="!skeletonloader">
-         <div class="bg-white drop-shadow-md rounded-md p-10 m-5"  *ngFor="let repo of Repositories | paginate: { itemsPerPage:  5, currentPage: p,totalItems: Repositories.length }">
-            <h1 class="text-xl mb-2">{{repo.name}}</h1>
-            <p class="mb-2" *ngIf="repo.description!=null">{{repo.description}}</p>
-            <p class="mb-2" *ngIf="repo.description==null">No description</p>
-             <ul class="flex flex-wrap">
-              <li>javaScript</li>
-              <li class="ml-2">Html</li>
-              <li class="ml-2">css</li>
-             </ul>
-         </div>
-     </main>
-     <footer class="grid place-items-center mt-14">
-      <pagination-controls nextLabel="Next" previousLabel="Previous" (pageChange)="p = $event"></pagination-controls>
-    </footer>
+         }"
+      count="1"
+      animation="progress"
+      *ngIf="skeletonloader"
+      appearance="circle"
+    ></ngx-skeleton-loader>
+
+    <!-- Displaying user image -->
+    <div *ngIf="!skeletonloader">
+      <img
+        class="border-gray-500 border-x-4 border-y-4 rounded-[50%] w-[200px] h-[200px] mb-5"
+        src="{{ userProfile.avatar_url }}"
+        alt="user_img"
+      />
+      <a href="https://github.com/Mahendrareddy190"
+        >https://github.com/{{ userProfile.login }}</a
+      >
+    </div>
+
+    <!-- Profile skeleton-loader-->
+    <ngx-skeleton-loader
+      [theme]="{
+        height: '20px',
+        'margin-top': '40px'
+      }"
+      count="2"
+      animation="progress"
+      *ngIf="skeletonloader"
+      appearance="line"
+    >
+    </ngx-skeleton-loader>
+
+    <!-- Displaying Profile details -->
+    <div class="mt-[25%] sm:mt-[15%]" *ngIf="!skeletonloader">
+      <h3 class="mb-2 text-xl">{{ userProfile.login }}</h3>
+      <p class="mb-2">{{ userProfile.bio }}</p>
+      <p class="mb-2 flex flex-1 m-0" *ngIf="userProfile.location != null">
+        <img
+          class="mr-2 h-6"
+          src="../assets/icons8-location.gif"
+          alt="location"
+        />{{ userProfile.location }}
+      </p>
+      <p>Twitter:https://twitter.com/{{ userProfile.twitter_username }}</p>
+    </div>
+    <input
+      class="border w-[300px] h-[30px] rounded-lg p-3 mt-5 md:ml-5 md:mt-0"
+      #box
+      (keyup.enter)="onEnter(box.value)"
+      placeholder="Enter username and Click Enter"
+    />
+  </header>
+
+  <!-- Repositories skeleton-loader-->
+  <ngx-skeleton-loader
+    *ngIf="skeletonloader"
+    count="3"
+    appearance="line"
+    animation="progress"
+    [theme]="{
+      height: '30px',
+      'margin-top': '40px'
+    }"
+  >
+  </ngx-skeleton-loader>
+
+  <!-- Displaying All Repositories of currentUser-->
+  <main
+    class="container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mt-10 w-[100%] h-[100%]"
+    *ngIf="!skeletonloader"
+  >
+    <div
+      class="bg-white drop-shadow-md rounded-md p-10 m-5"
+      *ngFor="
+        let repo of Repositories
+          | paginate
+            : {
+                itemsPerPage: 5,
+                currentPage: p,
+                totalItems: Repositories.length
+              }
+      "
+    >
+      <h1 class="text-xl mb-2">{{ repo.name }}</h1>
+      <p class="mb-2" *ngIf="repo.description != null">
+        {{ repo.description }}
+      </p>
+      <p class="mb-2" *ngIf="repo.description == null">No description</p>
+      <ul class="flex flex-wrap">
+        <li>javaScript</li>
+        <li class="ml-2">Html</li>
+        <li class="ml-2">css</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="grid place-items-center mt-14">
+    <pagination-controls
+      nextLabel="Next"
+      previousLabel="Previous"
+      (pageChange)="p = $event"
+    ></pagination-controls>
+  </footer>
 </div>
- 
