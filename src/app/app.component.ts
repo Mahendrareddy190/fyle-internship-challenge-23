@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './services/api.service';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -12,7 +14,7 @@ export class AppComponent implements OnInit{
   p: number = 1;
   value:string = 'johnpapa';
   skeletonloader:boolean=true;
-
+  title:string="fyle-frontend-challenge"
   constructor(
     private apiService: ApiService
   ) {}
@@ -26,16 +28,13 @@ export class AppComponent implements OnInit{
   APIcall(){
     this.apiService.getUser(`${this.value}`).subscribe(data => {
       this.userProfile = data
-      setTimeout(() => {
-        this.skeletonloader=false;
-      },  1000);
     }) 
     this.apiService.getRepos(`${this.value}`).subscribe(data => {
-      this.Repositories = data
-      setTimeout(() => {
-        this.skeletonloader=false;
-      },  1000);
+      this.Repositories = data      
     })
+    setTimeout(() => {
+      this.skeletonloader=false;
+    },  1000);
   }
 
   ngOnInit() {
