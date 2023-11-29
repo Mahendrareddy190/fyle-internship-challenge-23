@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from  '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent
@@ -13,7 +13,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     BrowserModule,
     HttpClientModule,
     NgxPaginationModule,
-    NgxSkeletonLoaderModule
+    NgxSkeletonLoaderModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

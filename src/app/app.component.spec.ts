@@ -5,6 +5,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing'
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { ApiService } from './services/api.service'; 
+import { FormsModule } from '@angular/forms';
+
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let component: AppComponent;
@@ -13,7 +15,7 @@ describe('AppComponent', () => {
   beforeEach(
     async () => {
       await TestBed.configureTestingModule({
-      imports : [HttpClientTestingModule,NgxPaginationModule,NgxSkeletonLoaderModule],
+      imports : [HttpClientTestingModule,NgxPaginationModule,NgxSkeletonLoaderModule,FormsModule],
         declarations: [AppComponent],
         providers: [ApiService],
       }).compileComponents();

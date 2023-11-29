@@ -14,7 +14,8 @@ export class AppComponent implements OnInit{
   p: number = 1;
   value:string = 'johnpapa';
   skeletonloader:boolean=true;
-  title:string="fyle-frontend-challenge"
+  title:string="fyle-frontend-challenge";
+  perPageRepo:number=10;
   constructor(
     private apiService: ApiService
   ) {}
