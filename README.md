@@ -52,3 +52,5 @@ To execute unit tests for the components and services, you can utilize Angular's
 ng test 
 
 ng test --no-watch --code-coverage
+![Screenshot (126)](https://github.com/Mahendrareddy190/fyle-internship-challenge-23/assets/73093527/4b793cd5-d6d8-4f68-bdf6-28b896aacfba)
+
