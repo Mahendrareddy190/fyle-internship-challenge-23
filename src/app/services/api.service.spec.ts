@@ -1,44 +1,56 @@
 import { TestBed } from '@angular/core/testing';
 import { ApiService } from './api.service';
-import {HttpClientTestingModule,HttpTestingController} from '@angular/common/http/testing'
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 
 describe('ApiService', () => {
   let service: ApiService;
   let testingController: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports : [HttpClientTestingModule]
+      imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(ApiService);
-    testingController = TestBed.inject(HttpTestingController)
+    testingController = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('Should get all Repositores with username johnpapa',()=>{
-     service.getRepos("johnpapa").subscribe((repo : any) => {
-         expect(repo).toBeTruthy();
-     })
-     const mockreq = testingController.expectOne('https://api.github.com/users/johnpapa/repos')
-     expect(mockreq.request.method).toEqual('GET')
-  })
+  it('Should get all Repositores with username johnpapa', () => {
+    service.getRepos('johnpapa').subscribe((repo: any) => {
+      expect(repo).toBeTruthy();
+    });
+    const mockreq = testingController.expectOne(
+      'https://api.github.com/users/johnpapa/repos'
+    );
+    expect(mockreq.request.method).toEqual('GET');
+  });
 
-  it('Get user profile of johnpapa',()=>{
-    service.getUser("johnpapa").subscribe((user : any) => {
-        expect(user).toBeTruthy();
-    })
-    const mockreq = testingController.expectOne('https://api.github.com/users/johnpapa')
-   expect(mockreq.request.method).toEqual('GET')
- })
+  it('Get user profile of johnpapa', () => {
+    service.getUser('johnpapa').subscribe((user: any) => {
+      expect(user).toBeTruthy();
+    });
+    const mockreq = testingController.expectOne(
+      'https://api.github.com/users/johnpapa'
+    );
+    expect(mockreq.request.method).toEqual('GET');
+  });
 
- it('Get each Repositore of johnpapa',() => {
-  service.getTopic("https://api.github.com/repos/johnpapa/angular-tour-of-heroes/languages").subscribe((repoTopics : any) => {
-      expect(repoTopics).toBeTruthy();
-  })
-  const mockreq = testingController.expectOne('https://api.github.com/repos/johnpapa/angular-tour-of-heroes/languages')
-  expect(mockreq.request.method).toEqual('GET')
-})
-
+  it('Get each Repositore of johnpapa', () => {
+    service
+      .getTopic(
+        'https://api.github.com/repos/johnpapa/angular-tour-of-heroes/languages'
+      )
+      .subscribe((repoTopics: any) => {
+        expect(repoTopics).toBeTruthy();
+      });
+    const mockreq = testingController.expectOne(
+      'https://api.github.com/repos/johnpapa/angular-tour-of-heroes/languages'
+    );
+    expect(mockreq.request.method).toEqual('GET');
+  });
 });
